@@ -1,9 +1,15 @@
-module Day1 (pt1, pt2, parseAllNumbers, parseNumber) where
+module Day1 (pt1, pt2) where
 
 import AocParse
 import Control.Applicative
 import Data.Char
 import Data.Functor
+
+-- PT 1 --
+pt1 :: String -> Either String Int
+pt1 inp = do
+  (_, nums) <- runParser parse1 inp
+  Right $ sum nums
 
 parseFirstDigit :: Parser Char
 parseFirstDigit = matchWhile (not . isDigit) *> matchDigit
@@ -24,6 +30,12 @@ parse1 = Parser f
       nums <- mapM (runParser parseFirstAndLast) ls
       Right ("", map snd nums)
 
+-- PT 2 --
+pt2 :: String -> Either String Int
+pt2 inp = do
+  (_, parsed) <- runParser parse2 inp
+  Right $ sum parsed
+
 matchString' :: String -> Parser String
 matchString' m = Parser f
   where
@@ -33,12 +45,12 @@ matchString' m = Parser f
 
 matchTextDigit :: Parser Int
 matchTextDigit =
-  (matchString' "two" $> 2)
-    <|> (matchString' "one" $> 1)
-    <|> (matchString' "six" $> 6)
+  (matchString' "one" $> 1)
+    <|> (matchString' "two" $> 2)
     <|> (matchString' "three" $> 3)
     <|> (matchString' "four" $> 4)
     <|> (matchString' "five" $> 5)
+    <|> (matchString' "six" $> 6)
     <|> (matchString' "seven" $> 7)
     <|> (matchString' "eight" $> 8)
     <|> (matchString' "nine" $> 9)
@@ -61,16 +73,3 @@ parse2 = Parser f
       (_, ls) <- runParser (many matchLine) inp
       nums <- mapM (runParser (parseAllNumbers [])) ls
       Right ("", map (\n -> head (snd n) * 10 + last (snd n)) nums)
-
-pt1 :: String -> Either String Int
-pt1 inp = do
-  (_, nums) <- runParser parse1 inp
-  Right $ sum nums
-
--- (_, parsed) <- runParser parse inp
--- Right $ trace ("parsed: " ++ show parsed) (sum parsed)
-
-pt2 :: String -> Either String Int
-pt2 inp = do
-  (_, parsed) <- runParser parse2 inp
-  Right $ sum parsed

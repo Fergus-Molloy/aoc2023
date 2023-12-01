@@ -28,11 +28,6 @@ common shared
     -Wmissing-deriving-strategies -Wunused-foralls -Wunused-foralls
     -fprint-explicit-foralls -fprint-explicit-kinds
 
-  -- mixins:
-  --   base hiding (Prelude),
-  --   relude (Relude as Prelude, Relude.Container.One),
-  --   relude
-
   default-extensions:
     BangPatterns
     ConstraintKinds
@@ -84,7 +79,6 @@ common shared
     , mtl
     , optics-core
     , profunctors
-    -- , relude        >=1.0
     , shower
     , time
     , with-utf8
@@ -101,6 +95,6 @@ library
     Day1
 
 executable aoc2023
-  import:  shared
+  import:        shared
   build-depends: aoc2023
-  main-is: Main.hs
+  main-is:       Main.hs

@@ -1,15 +1,15 @@
-module AocPoint
-  ( Point,
-    PointMap (..),
-    getPoint,
-    getRow,
-    getCol,
-    getCardinalIndicies,
-    getOrdinalIndicies,
-    getCardinalPoints,
-    getOrdinalPoints,
-    setPoint,
-  )
+module AocPoint (
+  Point,
+  PointMap (..),
+  getPoint,
+  getRow,
+  getCol,
+  getCardinalIndicies,
+  getOrdinalIndicies,
+  getCardinalPoints,
+  getOrdinalPoints,
+  setPoint,
+)
 where
 
 type Point = (Int, Int)
@@ -42,8 +42,8 @@ getOrdinalIndicies (x, y) =
   filter
     (/= (x, y)) -- don't include given index
     [ (a, b)
-      | a <- [p + x | p <- [-1 .. 1]],
-        b <- [i + y | i <- [-1 .. 1]]
+    | a <- [p + x | p <- [-1 .. 1]]
+    , b <- [i + y | i <- [-1 .. 1]]
     ]
 
 -- | check if a point has either x, or y out of bounds of the point map's size

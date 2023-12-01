@@ -1,21 +1,21 @@
-module AocParse
-  ( Parser (..),
-    matchChar,
-    matchAnyChar,
-    matchDigit,
-    matchString,
-    matchWhile,
-    matchInt,
-    matchWhiteSpace,
-    matchTo,
-    matchEmpty,
-    matchLine,
-    matchNLines,
-    wrappedBy,
-    wrappedByChar,
-    discardToNextInt,
-    splitOn,
-  )
+module AocParse (
+  Parser (..),
+  matchChar,
+  matchAnyChar,
+  matchDigit,
+  matchString,
+  matchWhile,
+  matchInt,
+  matchWhiteSpace,
+  matchTo,
+  matchEmpty,
+  matchLine,
+  matchNLines,
+  wrappedBy,
+  wrappedByChar,
+  discardToNextInt,
+  splitOn,
+)
 where
 
 import Control.Applicative
