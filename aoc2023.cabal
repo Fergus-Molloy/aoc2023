@@ -93,6 +93,7 @@ library
     AocParse
     AocPoint
     Day1
+    Day2
 
 executable aoc2023
   import:        shared
