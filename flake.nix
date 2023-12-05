@@ -32,6 +32,7 @@
             aeson.source = "1.5.0.0" # Hackage version
             shower.source = inputs.shower; # Flake input
             */
+            #criterion.source = "1.6.3";
           };
 
           # Add your package overrides here

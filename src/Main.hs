@@ -1,5 +1,6 @@
 module Main where
 
+import Criterion.Main
 import Day1 qualified as D1
 import Day2 qualified as D2
 import Main.Utf8 qualified as Utf8
@@ -7,13 +8,33 @@ import System.Environment
 
 type Day = Int
 
+--- Benchmark Main ---
+main1 :: IO ()
+main1 = do
+  d1 <- readFile "./inputs/day1"
+  d2 <- readFile "./inputs/day2"
+  defaultMain
+    [ bgroup
+        "Day 1"
+        [ bench "Pt 1" $ whnf D1.pt1 d1,
+          bench "Pt 2" $ whnf D1.pt2 d1
+        ],
+      bgroup
+        "Day 2"
+        [ bench "Pt 1" $ whnf D2.pt1 d2,
+          bench "Pt 2" $ whnf D2.pt2 d2
+        ]
+    ]
+
+--- Testing Main ---
 main :: IO ()
 main = do
   args <- getArgs
   d1 <- getInput 1
+  d2 <- getInput 2
   case args of
     [] -> Utf8.withUtf8 $ do
-      putStrLn $ printAns (zip genDays [D1.pt1 d1, D1.pt2 d1])
+      putStrLn $ printAns (zip genDays [D1.pt1 d1, D1.pt2 d1, D2.pt1 d2, D2.pt2 d2])
     (day : _) -> do
       inp <- getInput d
       putStrLn $ foldl (\b a -> b <> getDayString d (snd a) <> show (fst a) <> "\n") "" (zip (runDay d inp) [1 .. 2])
