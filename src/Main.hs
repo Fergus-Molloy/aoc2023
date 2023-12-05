@@ -33,9 +33,10 @@ main = do
   args <- getArgs
   d1 <- getInput 1
   d2 <- getInput 2
+  d3 <- getInput 3
   case args of
     [] -> Utf8.withUtf8 $ do
-      putStrLn $ printAns (zip genDays [D1.pt1 d1, D1.pt2 d1, D2.pt1 d2, D2.pt2 d2])
+      putStrLn $ printAns (zip genDays [D1.pt1 d1, D1.pt2 d1, D2.pt1 d2, D2.pt2 d2, D3.pt1 d3, D3.pt2 d3])
     (day : _) -> do
       inp <- getInput d
       putStrLn $ foldl (\b a -> b <> getDayString d (snd a) <> show (fst a) <> "\n") "" (zip (runDay d inp) [1 .. 2])

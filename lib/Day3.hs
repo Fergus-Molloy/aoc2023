@@ -1,6 +1,7 @@
 module Day3 where
 
 import Data.Char hiding (isSymbol)
+import Debug.Trace
 import Prelude hiding (getChar)
 
 type Point = (Int, Int)
@@ -34,9 +35,19 @@ getChar s (x, y) = (s !! y) !! x
 
 -- | are any of the chars next to a symbol (includes diagonals)
 nextToSymbol :: [String] -> [(Char, Point)] -> Bool
-nextToSymbol s = any (any (isSymbol . getChar s) . (\(_, p) -> filter inRange $ getOrdinalIndicies p))
+nextToSymbol s =
+  any
+    ( any (isSymbol . getChar s)
+        . ( \(_, p) ->
+              filter
+                inRange
+                $ getOrdinalIndicies p
+          )
+    )
   where
-    inRange (x, y) = x >= 0 && y >= 0 && x < 10 && y < length s
+    inRange (x, y) = x >= 0 && y >= 0 && x < w && y < length s
+    -- w = 10 -- test width
+    w = 140 -- actual input
 
 -- | zip chars with thier coords
 stringWCoords :: String -> [[(Char, Point)]]
@@ -46,16 +57,16 @@ stringWCoords s = zipWith (\l y -> zipWith (\c x -> (c, (x, y))) l [0 ..]) ls [0
 
 getAllNums :: [[(Char, Point)]] -> [(Char, Point)] -> [[(Char, Point)]]
 getAllNums acc s = case getNextNumber s of
-  (cs, []) -> cs : acc
+  (cs, []) -> reverse (cs : acc)
   (cs, t) -> getAllNums (cs : acc) t
 
 extractNums :: String -> [[(Char, Point)]]
 extractNums s = concatMap (filter (/= []) . getAllNums []) (stringWCoords s)
 
 pt1 :: String -> Either String Int
-pt1 inp = Right $ sum $ map (read . foldr (\(c, _) acc -> c : acc) "") ns
+pt1 inp = Right $ sum $ map (read . map fst) ns
   where
-    ns = filter (nextToSymbol ls) $ extractNums inp
+    ns = filter (nextToSymbol ls) (extractNums inp)
     ls = lines inp
 
 pt2 _ = Right 0
