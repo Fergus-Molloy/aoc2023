@@ -3,6 +3,7 @@ module Main where
 import Criterion.Main
 import Day1 qualified as D1
 import Day2 qualified as D2
+import Day3 qualified as D3
 import Main.Utf8 qualified as Utf8
 import System.Environment
 
@@ -42,7 +43,7 @@ main = do
         d = read day
 
 solutions :: [String -> Either String Int]
-solutions = [D1.pt1, D1.pt2, D2.pt1, D2.pt2]
+solutions = [D1.pt1, D1.pt2, D2.pt1, D2.pt2, D3.pt1, D3.pt2]
 
 getSolutions :: Day -> [String -> Either String Int]
 getSolutions d = solutions !! idx : [solutions !! (idx + 1)]

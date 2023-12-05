@@ -1,18 +1,22 @@
-module AocPoint (
-  Point,
-  PointMap (..),
-  getPoint,
-  getRow,
-  getCol,
-  getCardinalIndicies,
-  getOrdinalIndicies,
-  getCardinalPoints,
-  getOrdinalPoints,
-  setPoint,
-)
+module AocPoint
+  ( Point,
+    PointMap (..),
+    getPoint,
+    getRow,
+    getCol,
+    getCardinalIndicies,
+    getOrdinalIndicies,
+    getCardinalPoints,
+    getOrdinalPoints,
+    setPoint,
+    pointsAdjacent,
+  )
 where
 
 type Point = (Int, Int)
+
+instance {-# OVERLAPPING #-} Ord Point where
+  (<=) (ax, ay) (bx, by) = ax <= bx && ay <= by
 
 -- | A flat map of 2d points
 data PointMap = PointMap {size :: (Int, Int), points :: [Point]} deriving stock (Show)
@@ -42,8 +46,8 @@ getOrdinalIndicies (x, y) =
   filter
     (/= (x, y)) -- don't include given index
     [ (a, b)
-    | a <- [p + x | p <- [-1 .. 1]]
-    , b <- [i + y | i <- [-1 .. 1]]
+      | a <- [p + x | p <- [-1 .. 1]],
+        b <- [i + y | i <- [-1 .. 1]]
     ]
 
 -- | check if a point has either x, or y out of bounds of the point map's size
@@ -64,3 +68,8 @@ setPoint (PointMap dim ps) i sub = PointMap dim $ h ++ sub : drop 1 xs
   where
     (h, xs) = splitAt idx ps
     idx = getIdx dim i
+
+pointsAdjacent :: Point -> Point -> Bool
+pointsAdjacent (ax, ay) (bx, by) =
+  (ax == bx && (ay - by == 1 || by - ay == 1))
+    || (ay == by && (ax - bx == 1 || bx - ax == 1))

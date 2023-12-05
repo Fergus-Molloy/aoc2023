@@ -1,21 +1,22 @@
-module AocParse (
-  Parser (..),
-  matchChar,
-  matchAnyChar,
-  matchDigit,
-  matchString,
-  matchWhile,
-  matchInt,
-  matchWhiteSpace,
-  matchTo,
-  matchEmpty,
-  matchLine,
-  matchNLines,
-  wrappedBy,
-  wrappedByChar,
-  discardToNextInt,
-  splitOn,
-)
+module AocParse
+  ( Parser (..),
+    matchChar,
+    matchCharPattern,
+    matchAnyChar,
+    matchDigit,
+    matchString,
+    matchWhile,
+    matchInt,
+    matchWhiteSpace,
+    matchTo,
+    matchEmpty,
+    matchLine,
+    matchNLines,
+    wrappedBy,
+    wrappedByChar,
+    discardToNextInt,
+    splitOn,
+  )
 where
 
 import Control.Applicative
@@ -53,6 +54,15 @@ matchChar c = Parser f
       | y == c = Right (ys, c)
       | otherwise = Left $ "Could not parse `" ++ [c] ++ "` from `" ++ (y : ys) ++ "`"
     f [] = Left $ "Could not parse `" ++ [c] ++ "` from empty input"
+
+-- | Parse a single character
+matchCharPattern :: (Char -> Bool) -> Parser Char
+matchCharPattern p = Parser f
+  where
+    f (y : ys)
+      | p y = Right (ys, y)
+      | otherwise = Left $ "Could not parse char from `" ++ (y : ys) ++ "`"
+    f [] = Left $ "Could not parse char from empty input"
 
 matchEmpty :: Parser Char
 matchEmpty = Parser f
