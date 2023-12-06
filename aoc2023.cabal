@@ -73,6 +73,7 @@ common shared
     , aeson
     , async
     , base          >=4.13.0.0 && <4.18.0.0.0
+    , containers
     , data-default
     , directory
     , filepath
@@ -96,10 +97,11 @@ library
     Day2
     Day2.Types
     Day3
+    Day6
 
 executable aoc2023
-  import:        shared
-  hs-source-dirs:     src
-  build-depends: aoc2023
-  main-is:       Main.hs
+  import:           shared
+  hs-source-dirs:   src
+  build-depends:    aoc2023
+  main-is:          Main.hs
 
