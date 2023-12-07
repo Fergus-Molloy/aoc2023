@@ -34,13 +34,6 @@ getCopies cs c = 1 + sum (map (getCopies cs) (take winCount $ drop (ident c) cs)
   where
     winCount = getWinCount c
 
-getCopiesMap :: [Card] -> [Int] -> Card -> [Int]
-getCopiesMap cs c = cardMap !! (ident c)
-  where
-    cardMap :: [Int]
-    cardMap = take (length cs) (repeat 1)
-    winCount = getWinCount c
-
 pt1 :: String -> Either String Int
 pt1 inp = do
   (_, parsed) <- runParser parse inp
