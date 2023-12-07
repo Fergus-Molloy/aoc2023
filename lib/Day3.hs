@@ -110,7 +110,7 @@ duplicates' acc [a] = a : acc
 duplicates' acc (a : ps) = if adjacentPoints a (head ps) then duplicates' acc ps else duplicates' (a : acc) ps
 
 pt2 :: String -> Either String Int
-pt2 inp = Right $ sum $ map product (trace ("Got nums: " <> show nums) nums)
+pt2 inp = Right $ sum $ map product nums
   where
     nums = filter (\l -> length l >= 2) $ map ((nub . map (getNumFromPoint ls)) . nextToDigits ls) gears
     gears = nub $ concat $ group $ sort (concatMap (getGears ls) (extractNums inp))

@@ -4,6 +4,7 @@ import Criterion.Main
 import Day1 qualified as D1
 import Day2 qualified as D2
 import Day3 qualified as D3
+import Day4 qualified as D4
 import Main.Utf8 qualified as Utf8
 import System.Environment
 
@@ -34,9 +35,35 @@ main = do
   d1 <- getInput 1
   d2 <- getInput 2
   d3 <- getInput 3
+  d4 <- getInput 4
   case args of
-    [] -> Utf8.withUtf8 $ do
-      putStrLn $ printAns (zip genDays [D1.pt1 d1, D1.pt2 d1, D2.pt1 d2, D2.pt2 d2, D3.pt1 d3, D3.pt2 d3])
+    [] ->
+      Utf8.withUtf8 $ do
+        putStrLn $
+          "Day 1 Pt1 -> "
+            <> show (D1.pt1 d1)
+            <> "\n"
+            <> "Day 1 Pt2 -> "
+            <> show (D1.pt2 d1)
+            <> "\n"
+            <> "Day 2 Pt1 -> "
+            <> show (D2.pt1 d2)
+            <> "\n"
+            <> "Day 2 Pt2 -> "
+            <> show (D2.pt2 d2)
+            <> "\n"
+            <> "Day 3 Pt1 -> "
+            <> show (D3.pt1 d3)
+            <> "\n"
+            <> "Day 3 Pt2 -> "
+            <> show (D3.pt2 d3)
+            <> "\n"
+            <> "Day 4 Pt1 -> "
+            <> show (D4.pt1 d4)
+            <> "\n"
+            <> "Day 4 Pt2 -> "
+            <> show (D4.pt2 d4)
+            <> "\n"
     (day : _) -> do
       inp <- getInput d
       putStrLn $ foldl (\b a -> b <> getDayString d (snd a) <> show (fst a) <> "\n") "" (zip (runDay d inp) [1 .. 2])

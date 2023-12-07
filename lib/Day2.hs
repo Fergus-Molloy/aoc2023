@@ -2,7 +2,7 @@
 
 {-# HLINT ignore "Redundant map" #-}
 {-# HLINT ignore "Redundant id" #-}
-module Day2 where
+module Day2 (pt1, pt2) where
 
 import AocParse
 import Control.Applicative
