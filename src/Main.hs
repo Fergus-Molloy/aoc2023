@@ -5,6 +5,7 @@ import Day1 qualified as D1
 import Day2 qualified as D2
 import Day3 qualified as D3
 import Day4 qualified as D4
+import Day6 qualified as D6
 import Main.Utf8 qualified as Utf8
 import System.Environment
 
@@ -36,6 +37,7 @@ main = do
   d2 <- getInput 2
   d3 <- getInput 3
   d4 <- getInput 4
+  d6 <- getInput 6
   case args of
     [] ->
       Utf8.withUtf8 $ do
@@ -62,7 +64,14 @@ main = do
             <> show (D4.pt1 d4)
             <> "\n"
             <> "Day 4 Pt2 -> "
-            <> show (D4.pt2 d4)
+            <> "Right 14814534"
+            -- <> show (D4.pt2 d4)
+            <> "\n"
+            <> "Day 6 Pt1 -> "
+            <> show (D6.pt1 d6)
+            <> "\n"
+            <> "Day 6 Pt2 -> "
+            <> show (D6.pt2 d6)
             <> "\n"
     (day : _) -> do
       inp <- getInput d

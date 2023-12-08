@@ -98,6 +98,7 @@ library
     Day2.Types
     Day3
     Day4
+    Day6
 
 executable aoc2023
   import:           shared

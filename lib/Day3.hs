@@ -2,7 +2,6 @@ module Day3 where
 
 import Data.Char hiding (isSymbol)
 import Data.List
-import Debug.Trace
 import Prelude hiding (getChar)
 
 type Point = (Int, Int)

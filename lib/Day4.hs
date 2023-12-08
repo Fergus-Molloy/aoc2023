@@ -2,7 +2,6 @@ module Day4 (pt1, pt2) where
 
 import AocParse
 import Data.Bits
-import Debug.Trace
 
 data Card = Card {ident :: Int, wins :: [Int], numbers :: [Int]} deriving stock (Show)
 
@@ -33,6 +32,11 @@ getCopies :: [Card] -> Card -> Int
 getCopies cs c = 1 + sum (map (getCopies cs) (take winCount $ drop (ident c) cs))
   where
     winCount = getWinCount c
+
+-- getCopies' :: [Card] -> Card -> Int
+-- getCopies' (c : cs) c = 1 + sum (map (getCopies cs) (take winCount $ drop (ident c) cs))
+--   where
+--     winCount = getWinCount c
 
 pt1 :: String -> Either String Int
 pt1 inp = do
