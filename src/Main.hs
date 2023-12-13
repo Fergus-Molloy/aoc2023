@@ -6,16 +6,18 @@ import Day2 qualified as D2
 import Day3 qualified as D3
 import Day4 qualified as D4
 import Day6 qualified as D6
+import Day7 qualified as D7
 import Main.Utf8 qualified as Utf8
 import System.Environment
 
 type Day = Int
 
 --- Benchmark Main ---
-main1 :: IO ()
-main1 = do
+main' :: IO ()
+main' = do
   d1 <- readFile "./inputs/day1"
   d2 <- readFile "./inputs/day2"
+  d6 <- readFile "./inputs/day6"
   defaultMain
     [ bgroup
         "Day 1"
@@ -26,6 +28,11 @@ main1 = do
         "Day 2"
         [ bench "Pt 1" $ whnf D2.pt1 d2,
           bench "Pt 2" $ whnf D2.pt2 d2
+        ],
+      bgroup
+        "Day 6"
+        [ bench "Pt 1" $ whnf D6.pt1 d6,
+          bench "Pt 2" $ whnf D6.pt2 d6
         ]
     ]
 
@@ -38,6 +45,8 @@ main = do
   d3 <- getInput 3
   d4 <- getInput 4
   d6 <- getInput 6
+  d7 <- getInput 7
+  d8 <- getInput 8
   case args of
     [] ->
       Utf8.withUtf8 $ do
@@ -73,6 +82,18 @@ main = do
             <> "Day 6 Pt2 -> "
             <> show (D6.pt2 d6)
             <> "\n"
+            <> "Day 7 Pt1 -> "
+            <> show (D7.pt1 d7)
+            <> "\n"
+            <> "Day 7 Pt2 -> "
+            <> show (D7.pt2 d7)
+            <> "\n"
+            <> "Day 8 Pt1 -> "
+            <> show (D8.pt1 d8)
+            <> "\n"
+            <> "Day 8 Pt2 -> "
+            <> show (D8.pt2 d8)
+            <> "\n"
     (day : _) -> do
       inp <- getInput d
       putStrLn $ foldl (\b a -> b <> getDayString d (snd a) <> show (fst a) <> "\n") "" (zip (runDay d inp) [1 .. 2])
@@ -80,7 +101,7 @@ main = do
         d = read day
 
 solutions :: [String -> Either String Int]
-solutions = [D1.pt1, D1.pt2, D2.pt1, D2.pt2, D3.pt1, D3.pt2]
+solutions = [D1.pt1, D1.pt2, D2.pt1, D2.pt2, D3.pt1, D3.pt2, D4.pt1, D4.pt2, \_ -> Right 0, \_ -> Right 0, D6.pt1, D6.pt2]
 
 getSolutions :: Day -> [String -> Either String Int]
 getSolutions d = solutions !! idx : [solutions !! (idx + 1)]

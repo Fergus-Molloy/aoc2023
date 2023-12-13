@@ -37,3 +37,17 @@ pt2 inp = do
   (rest, time) <- runParser (parseTime <* matchLine) inp
   (_, distance) <- runParser parseDistance rest
   Right $ countPossibleWins (time, distance)
+
+countPossibleWins' :: (Int, Int) -> (Int, Int)
+countPossibleWins' (time, dist) = ((dist' - floor (sqrt inner)) `div` (2 * time'), (dist + floor (sqrt inner)) `div` (2 * time))
+  where
+    inner :: Double
+    inner = fromIntegral $ (dist * dist) - (4 * time)
+    time' = fromIntegral time
+    dist' = fromIntegral dist
+
+pt2' :: String -> Either String Int
+pt2' inp = do
+  (rest, time) <- runParser (parseTime <* matchLine) inp
+  (_, distance) <- runParser parseDistance rest
+  Right $ countPossibleWins (time, distance)

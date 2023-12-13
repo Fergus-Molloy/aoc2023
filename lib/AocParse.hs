@@ -12,6 +12,7 @@ module AocParse
     matchEmpty,
     matchLine,
     matchNLines,
+    matchN,
     wrappedBy,
     wrappedByChar,
     discardToNextInt,
@@ -63,6 +64,11 @@ matchCharPattern p = Parser f
       | p y = Right (ys, y)
       | otherwise = Left $ "Could not parse char from `" ++ (y : ys) ++ "`"
     f [] = Left $ "Could not parse char from empty input"
+
+matchN :: Int -> Parser String
+matchN n = Parser f
+  where
+    f inp = if length inp < n then Left $ "input is not long enough to take " <> show n <> " from" else Right (drop n inp, take n inp)
 
 matchEmpty :: Parser Char
 matchEmpty = Parser f

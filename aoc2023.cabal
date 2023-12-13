@@ -99,6 +99,10 @@ library
     Day3
     Day4
     Day6
+    Day7
+    Day8
+    Day8.Helpers
+    SortedList
 
 executable aoc2023
   import:           shared
